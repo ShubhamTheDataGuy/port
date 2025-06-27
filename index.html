@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Shubham Nagpal | Portfolio</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- LazyLoad CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.css"
+    />
+    <style>
+      :root {
+        --bg-dark: #ffffff;
+        --bg-light: #f5f7fa;
+        --accent: #0066cc;
+        --accent-rgb: 0, 102, 204;
+        --glass: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(0, 0, 0, 0.1);
+        --text: #212529;
+        --text-light: #343a40;
+        --text-dark: #000000;
+        --bg-primary: linear-gradient(to bottom right, #ffffff, #e3f2fd);
+        --nav-bg: rgba(255, 255, 255, 0.9);
+        --card-bg: rgba(0, 102, 204, 0.05);
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: var(--bg-primary);
+        color: var(--text);
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .glass {
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--glass-border);
+        transition: background 0.3s ease;
+      }
+
+      .hero-glass {
+        background: linear-gradient(
+          to right,
+          rgba(var(--accent-rgb), 0.1),
+          rgba(255, 255, 255, 0.5)
+        ) !important;
+        text-align: center;
+      }
+
+      .btn-accent {
+        background: var(--accent);
+        color: white;
+        border: none;
+      }
+
+      .btn-accent:hover {
+        background: #005bb5;
+        color: white;
+      }
+
+      .btn-orange {
+        background: #ff9800;
+        color: white;
+      }
+
+      .btn-orange:hover {
+        background: #ffa733;
+        color: white;
+      }
+
+      #type {
+        font-size: 2.4rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 3px solid var(--accent);
+        animation: blink 0.75s step-end infinite;
+      }
+
+      .profile-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 4px solid var(--accent);
+        object-fit: cover;
+      }
+
+      .navbar.nav-bg {
+        background: var(--nav-bg);
+        backdrop-filter: blur(6px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      .navbar .nav-link {
+        color: var(--text);
+      }
+
+      .navbar .nav-link:hover {
+        color: var(--accent);
+      }
+
+      .video-container {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .lazy {
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .lazy.loaded {
+        opacity: 1;
+      }
+
+      .teacher-img {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .skill-category h4 {
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+
+      .session-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-left: 4px solid var(--accent);
+      }
+
+      .session-card h5 {
+        color: var(--accent);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: var(--text-dark);
+      }
+
+      @keyframes blink {
+        from,
+        to {
+          border-color: transparent;
+        }
+        50% {
+          border-color: var(--accent);
+        }
+      }
+
+      .video-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top-color: var(--accent);
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      .progress-container {
+        width: 100%;
+        height: 5px;
+        background: transparent;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      .progress-bar {
+        height: 5px;
+        background: var(--accent);
+        width: 0%;
+        transition: width 0.1s;
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--accent);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+        z-index: 999;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-to-top.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .back-to-top:hover {
+        background: #005bb5;
+        transform: translateY(-3px);
+      }
+
+      @media (max-width: 992px) {
+        .glass {
+          padding: 30px;
+        }
+
+        #type {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        h2 {
+          font-size: 1.8rem;
+        }
+        h3 {
+          font-size: 1.3rem;
+        }
+        #type {
+          font-size: 1.6rem;
+        }
+        .profile-img {
+          width: 100px;
+          height: 100px;
+        }
+        .back-to-top {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+          bottom: 20px;
+          right: 20px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+        h2 {
+          font-size: 1.5rem;
+        }
+        #type {
+          font-size: 1.4rem;
+          white-space: normal;
+        }
+        .glass {
+          padding: 20px;
+          width: 95%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark nav-bg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#hero">Sammar Saini</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#hero">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#career-skills">Career Skills</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#sessions">Sessions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#interview">Interview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery">Gallery</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="d-flex align-items-center min-vh-100 py-5">
+      <div class="container">
+        <div class="glass hero-glass mx-auto">
+          <img
+            data-src="https://avatars.githubusercontent.com/u/9919?s=200&v=4"
+            alt="Profile"
+            class="profile-img lazy"
+          />
+          <h1 class="mb-4"><span id="type"></span></h1>
+          <p class="fs-5 text-dark mb-4">
+            Creative Frontend Developer & Passionate Learner
+          </p>
+          <div class="d-flex justify-content-center flex-wrap gap-3">
+            <a href="#about" class="btn btn-accent px-4 py-2">Know Me</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 min-vh-100 d-flex align-items-center">
+      <div class="container">
+        <div class="glass mx-auto">
+          <h2 class="mb-4">👤 About Me</h2>
+          <p class="mb-4">
+            I'm Shubham, a dedicated B.Tech student passionate about
+            transforming designs into real web experiences. I specialize in
+            building clean, interactive frontends that users enjoy
+          </p>
+          <div class="mt-4">
+            <h3 class="mb-3">🎬 Intro Video</h3>
+            <div class="video-container ratio ratio-16x9">
+              <div class="video-loading"></div>
+              <iframe
+                class="lazy"
+                data-src="https://drive.google.com/file/d/1zJfBn8X-54sgcnP2CE8vHP-tn6lwaboI/preview
+            "
+                allow="autoplay"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Career Skills Section -->
+    <section
+      id="career-skills"
+      class="py-5 min-vh-100 d-flex align-items-center"
+    >
+      <div class="container">
+        <div class="glass mx-auto">
+          <h2 class="mb-4">💼 Career Skills</h2>
+          <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <img
+                data-src="https://t4.ftcdn.net/jpg/05/54/82/21/360_F_554822123_K53v2zyJKzbMoE4ItjpoX3QvfRVfCLlG.jpg"
+                alt="Career Skills Illustration"
+                class="teacher-img lazy"
+              />
+            </div>
+            <div class="col-lg-6">
+              <h3 class="mb-3">Semester Reflection</h3>
+              <p>
+                This semester in Career Skills has been transformative. Under
+                Ms. Anubha's guidance, I've developed essential professional
+                competencies that will serve me throughout my career. The
+                practical, hands-on approach made each lesson immediately
+                applicable.
+              </p>
+
+              <h4 class="mt-3">Key Achievements:</h4>
+              <ul>
+                <li>Developed a professional resume and LinkedIn profile</li>
+                <li>Mastered behavioral interview techniques</li>
+                <li>Improved my professional communication skills</li>
+                <li>Created a personal career development plan</li>
+              </ul>
+
+              <h4 class="mt-3">Areas for Improvement:</h4>
+              <ul>
+                <li>Networking confidence in professional settings</li>
+                <li>Salary negotiation techniques</li>
+                <li>Industry-specific interview preparation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sessions Section -->
+    <section id="sessions" class="py-5 min-vh-100 d-flex align-items-center">
+      <div class="container">
+        <div class="glass mx-auto">
+          <h2 class="mb-4">📅 Career Skills Sessions</h2>
+          <p class="mb-4">
+            Below is an overview of all 15 sessions conducted as part of our
+            Career Skills course this semester:
+          </p>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="session-card">
+                <h5>Session 1: Getting Started with Career Skills</h5>
+                <p>
+                  During our first PESE lab with Anubha Mam, she began by
+                  allowing us to settle before introducing herself and outlining
+                  her qualifications. To break the ice, she assigned a creative
+                  task—compose a song in English and translate it into Hindi or
+                  vice-versa. Each student performed their song in both
+                  languages. We also did a short physical activity to
+                  re-energize ourselves. She then prompted us to share our
+                  expectations from the PESE lab and concluded the session by
+                  asking each student to summarize their experience with one
+                  word, making it an engaging and reflective start.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 2: Basics of Resume Writing</h5>
+                <p>
+                  This session started with a bit of location confusion—it was
+                  first moved from BOSCH lab to Gate No. 3 due to a scheduling
+                  conflict, but later returned to the BOSCH lab. While waiting
+                  for Anubha Mam, Neelam Mam spoke with us about
+                  self-introductions and resume basics. Once Anubha Mam arrived,
+                  she asked us for our initial impressions of her, then guided
+                  us through defining our dream jobs and setting both short- and
+                  long-term goals. We wrapped up with a one-word reflection from
+                  each student, maintaining the interactive atmosphere.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 3: Crafting a Cover Letter</h5>
+                <p>
+                  Held in CX-206, this session began with Anubha Mam
+                  distributing CVs from our seniors to illustrate formatting and
+                  key elements. She explained the distinctions between a CV and
+                  a resume and when to use each. We were then asked to write
+                  three words describing ourselves on bookmarks. A quick energy
+                  exercise followed before we dove into a SWOT analysis
+                  activity, using handouts to understand strengths, weaknesses,
+                  opportunities, and threats. We concluded with each student
+                  sharing a single word to describe their experience.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 4: Group Discussion Skills</h5>
+                <p>
+                  This session emphasized improving group discussion techniques.
+                  We learned how to listen actively, contribute meaningfully,
+                  and use effective body language. Mam divided us into groups
+                  and assigned trending topics for discussion. She observed our
+                  ability to communicate clearly, collaborate, and respect
+                  differing views.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 5: Extempore Speaking Practice</h5>
+                <p>
+                  In this session, we honed our impromptu speaking skills.
+                  Random topics were selected from a bowl, and each student had
+                  a minute to prepare and two minutes to speak. Mam guided us on
+                  how to structure our ideas quickly and provided personalized
+                  feedback on delivery, vocabulary, and confidence.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 6: Storytelling Essentials</h5>
+                <p>
+                  Focused on storytelling, this creative session helped us shape
+                  compelling narratives with structure and emotional resonance.
+                  We shared personal stories, refined them, and explored how
+                  storytelling skills are useful in interviews and everyday
+                  professional conversations.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 7: Group Discussion - Advanced Level</h5>
+                <p>
+                  We expanded on our earlier group discussion practice by
+                  tackling more challenging and technical topics. Mam introduced
+                  the concept of taking roles like initiator, moderator, and
+                  summarizer. We learned how to manage disagreements
+                  professionally and keep conversations focused and productive.
+                </p>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="session-card">
+                <h5>Session 8: Domain-Based Extempore</h5>
+                <p>
+                  This round of extempore speaking was tailored to our technical
+                  fields. Topics included programming, tech trends, and ethical
+                  dilemmas. Mam emphasized the importance of being able to
+                  articulate technical knowledge effectively in professional
+                  settings.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 9: Interview-Oriented Storytelling</h5>
+                <p>
+                  We focused on the STAR (Situation-Task-Action-Result) method
+                  for answering behavioral interview questions. Using examples
+                  from our coursework and internships, we crafted stories that
+                  highlighted our problem-solving and teamwork. We practiced
+                  delivering them with clarity and intention.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 10: Simulated Panel Discussion</h5>
+                <p>
+                  This session mimicked a real panel discussion setup. We
+                  engaged in conversations about industry trends and job
+                  readiness strategies. Mam assessed our time management,
+                  ability to synthesize others' points, and teamwork throughout
+                  the discussion.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 11: Technical Communication</h5>
+                <p>
+                  We were challenged to explain complex technical topics in
+                  simple, understandable language. The focus was on using
+                  analogies and avoiding jargon to communicate clearly with
+                  non-technical audiences.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 12: Creative Storytelling</h5>
+                <p>
+                  We explored advanced storytelling tools like foreshadowing,
+                  character arcs, and flashbacks. Each student crafted a story
+                  using these techniques. Mam illustrated how applying
+                  creativity makes our stories—and by extension, our interview
+                  answers—more impactful.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 13: Case Study Exploration</h5>
+                <p>
+                  We analyzed real-life business scenarios in small teams. The
+                  goal was to identify problems, propose effective solutions,
+                  and defend our viewpoints. Mam focused on our ability to think
+                  critically and present arguments logically and clearly.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 14: Mock Interviews with Storytelling</h5>
+                <p>
+                  Bringing all our previous skills together, this session
+                  involved mock interviews. We answered behavioral questions
+                  using structured storytelling. Mam provided detailed feedback
+                  on our content, presentation, and non-verbal communication to
+                  help fine-tune our technique.
+                </p>
+              </div>
+
+              <div class="session-card">
+                <h5>Session 15: Reflection and Course Summary</h5>
+                <p>
+                  We looked back at our progress by comparing early and recent
+                  recordings of our performances. Each student shared key
+                  takeaways and set personal communication goals. Mam wrapped up
+                  the course with tailored feedback and suggestions for our
+                  future professional journey.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1v1 Interview Section -->
+    <section id="interview" class="py-5 min-vh-100 d-flex align-items-center">
+      <div class="container">
+        <div class="glass mx-auto">
+          <h2 class="mb-4">🎤 Personal Interview</h2>
+          <p class="mb-4">
+            As part of our learning journey, my friend and I engaged in a
+            friendly yet challenging 1v1 interview session. This exercise helped
+            us both improve our technical communication skills and think on our
+            feet.
+          </p>
+
+          <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1NdGyz_dFre6KP87DCLR9grVtZ0Aoqzzi/preview
+              "
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <h3 class="mb-3">Interview Highlights</h3>
+              <ul class="mb-4">
+                <li class="mb-2">
+                  <strong>Technical Depth:</strong> Challenged each other with
+                  real-world coding scenarios
+                </li>
+                <li class="mb-2">
+                  <strong>Problem Solving:</strong> Worked through complex
+                  algorithms under time pressure
+                </li>
+                <li class="mb-2">
+                  <strong>Communication:</strong> Practiced explaining technical
+                  concepts clearly
+                </li>
+                <li class="mb-2">
+                  <strong>Feedback:</strong> Provided constructive criticism to
+                  help each other improve
+                </li>
+              </ul>
+              <h3 class="mb-3">Key Takeaways</h3>
+              <p>
+                This experience taught me the importance of clear technical
+                communication and staying composed under pressure. It revealed
+                areas where I excel and aspects I need to work on, particularly
+                in articulating my thought process during problem-solving.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5 min-vh-100 d-flex align-items-center">
+      <div class="container">
+        <div class="glass mx-auto">
+          <h2 class="mb-4">🖼️ Semester Gallery</h2>
+          <p class="mb-4">
+            A few snapshots and moments from the classroom, labs, and learning
+            activities throughout this semester:
+          </p>
+
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1bc_EOPf91l8glZsaSPNPacT7TynnRPEE/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1LeRXPf6KO0DGH8xkVipJF7XK6rcY3M0m/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1BPh70gc-xn3Q6v-iDpZOMqV9X0my9CqK/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/15gjeVtbRxIRXHYeDWtXNcyhtZkhZ2NvC/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1AaGrRN1kiyPwTrcMOIwS0DunB41VIMG6/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1Bf_uf1157Qnevzj-KlvTCthFfBt7GSbC/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1gkea69aXD8JdROutsG9tDhI5Xk8RCPeQ/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="video-container ratio ratio-16x9">
+                <div class="video-loading"></div>
+                <iframe
+                  class="lazy"
+                  data-src="https://drive.google.com/file/d/1VuzZS6ofUrCsc29Vh8hAyhp1UeW3M1ZN/preview"
+                  allow="autoplay"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- LazyLoad JS -->
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script>
+
+    <script>
+      // Initialize LazyLoad
+      var lazyLoadInstance = new LazyLoad({
+        elements_selector: ".lazy",
+        threshold: 100,
+        callback_loaded: function (el) {
+          el.classList.add("loaded");
+          // Hide loading spinner when iframe is loaded
+          if (el.tagName === "IFRAME") {
+            const spinner = el.previousElementSibling;
+            if (spinner && spinner.classList.contains("video-loading")) {
+              spinner.style.display = "none";
+            }
+          }
+        },
+      });
+
+      // Typing effect
+      const typeText = "Welcome to My Portfolio";
+      let i = 0;
+      function typing() {
+        if (i < typeText.length) {
+          document.getElementById("type").textContent += typeText.charAt(i);
+          i++;
+          setTimeout(typing, 80);
+        }
+      }
+      typing();
+
+      // Close mobile menu when clicking a link
+      const navLinks = document.querySelectorAll(".nav-link");
+      const navbarToggler = document.querySelector(".navbar-toggler");
+      const navbarCollapse = document.querySelector(".navbar-collapse");
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 992) {
+            navbarToggler.setAttribute("aria-expanded", "false");
+            navbarCollapse.classList.remove("show");
+          }
+        });
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+        });
+      });
+
+      // Scroll progress indicator
+      window.onscroll = function () {
+        const winScroll =
+          document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+
+        // Show/hide back to top button
+        if (winScroll > 300) {
+          document.getElementById("backToTop").classList.add("active");
+        } else {
+          document.getElementById("backToTop").classList.remove("active");
+        }
+      };
+
+      // Back to top button
+      document.getElementById("backToTop").addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
+    </script>
+  </body>
+</html>
